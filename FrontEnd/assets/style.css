@@ -169,7 +169,7 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -179,6 +179,30 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
+
+#filtre {
+	display: flex;
+	justify-content: center;
+}
+ button{
+	font-family: 'Syne';
+	font-weight: 700;
+	height: 50px;
+	text-align: center;
+	border: #1D6154 2px solid;
+	color: #1D6154;
+	border-radius: 60px;
+	margin: 0px 20px 50px 0px;
+	background-color: white ;
+	font-size: 1.2em;
+	padding-left: 40px;
+    padding-right: 40px;
+ }
+
+ button:hover {
+	background-color: #1D6154;
+	color: white;
+ }
 
 footer nav ul {
 	display: flex;
