@@ -2,7 +2,7 @@
 /************ Variables General ***********/
 
 const gallery = document.querySelector(".gallery")
-const filtres = document.getElementById("filtre")
+const filtres = document.querySelector(".filtre")
 
 
 
@@ -16,9 +16,15 @@ getWorks()
 
 /************ Affichage des Images dans le DOM ***************/
 
-async function works() {
-    const arrayWorks = await getWorks()
-    arrayWorks.forEach(work => {
+async function createWorks (){
+    const arrayCategories = await getWorks()
+    arrayCategories.forEach((work) => {
+        displayWorks(work)
+    })
+}
+createWorks()
+
+function displayWorks(work) {
         const figure = document.createElement("figure")
         const img = document.createElement("img")
         const figcaption = document.createElement("figcaption")
@@ -27,43 +33,57 @@ async function works() {
         figure.appendChild(img)
         figure.appendChild(figcaption)
         gallery.appendChild(figure)
-        figure.classList.add(".gallery")
-    })
+        figure.classList.add(".gallery")   
 }
-works()
+
 
 /**************** Fonction qui appel l'API categorie  **********************/
 
 async function getFilters() {
-    const am = await fetch ("http://localhost:5678/api/categories")
-    return await am.json()
-    
+    const response = await fetch ("http://localhost:5678/api/categories")
+    return await response.json()
 }
-getFilters()
+
 
 /*************** Affichage Des bouton filtres ********************/
 
 async function ButtonFilters() {
-    const categories = await getFilters()
-    categories.forEach(filter => {
-        const button = document.createElement("button")
-        button.textContent = filter.name
-        button.dataset.id = filter.id
-        filtres.appendChild(button)
-        button.addEventListener("click", () => {
-            filterWorks(filter.id)
-        })
+    const buttons = await getFilters()
+    // console.log(buttons);
+    buttons.forEach(category => {
+        const btn = document.createElement("button")
+        btn.textContent = category.name
+        btn.id = category.id
+        filtres.appendChild(btn)
+        //  console.log(buttons)
     })
 }
 ButtonFilters()
 
-function filterWorks(works,category) {
-    const filterWorks = works.filter ( (work) => work.category.name === category)
-    console.log("Filtrage des travaux pour l'ID du filtre :", filterId);
-   const buttons = document.querySelectorAll (".filtre button")
+/****************** Filtrer au click par categories *****************************/
+
+async function filterWork() {
+    const arrayCategories = await getWorks()
+    // console.log(arrayCategories);
+    const buttons = document.querySelectorAll(".filtre button")
+    buttons.forEach((button) =>{
+        button.addEventListener("click", (event) => {
+            btnId = event.target.id
+            gallery.innerHTML = ""
+            if (btnId !== "0"){
+                const filteredWorks = arrayCategories.filter((work) => {
+                return work.categoryId == btnId                  
+                })               
+                filteredWorks.forEach ((work) => {
+                    displayWorks(work)  
+                })
+            }else{
+                createWorks()
+            }
+            // console.log(btnId)
+        })
+    })
+    // console.log(buttons);
 }
-
-
-
-
-
+ filterWork()
+ 

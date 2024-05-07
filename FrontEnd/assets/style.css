@@ -180,7 +180,7 @@ input[type="submit"] {
 	border-radius: 60px ;
 }
 
-#filtre {
+.filtre {
 	display: flex;
 	justify-content: center;
 }
