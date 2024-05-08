@@ -75,7 +75,15 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
+
+}
+
+a{
+ color: black;
+}
+nav a {
+	text-decoration: none;
+	
 }
 
 h2{
@@ -90,7 +98,7 @@ nav ul {
 	list-style-type: none;
 
 }
-nav li {
+nav li  {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
@@ -98,6 +106,7 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -125,6 +134,7 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -135,38 +145,67 @@ li:hover {
 
 .gallery img {
 	width: 100%;
+}
 
-}
-#contact {
-	width: 50%;
-margin: auto;
-}
-#contact > * {
+.erreur{
+	color: red;
+	font-weight: bold;
+	font-size: 16px;
+	border-radius: 50px;
+	margin-right: 100px;
+	margin-left: 100px;
+	margin-top: 50px;
 	text-align: center;
-
+	
 }
-#contact h2{
+
+.error {
+	background-color: #1D6154;
+}
+#contact,
+#login {
+	width: 50%;
+	margin: auto;
+}
+
+#contact,
+#login > * {
+	text-align: center;
+}
+
+#contact h2,
+#login h2{
 	margin-bottom: 20px;
 }
-#contact form {
+
+#contact form,
+#login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input,
+#login input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+
+#contact label,
+#login label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#login {
+margin-top: 50px;
 }
 
 input[type="submit"] {
@@ -184,6 +223,7 @@ input[type="submit"] {
 	display: flex;
 	justify-content: center;
 }
+
  button{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -199,7 +239,7 @@ input[type="submit"] {
     padding-right: 40px;
  }
 
- button:hover {
+ button:focus {
 	background-color: #1D6154;
 	color: white;
  }

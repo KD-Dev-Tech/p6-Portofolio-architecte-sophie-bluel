@@ -9,22 +9,33 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src=></script>
 </head>
 <body>
-<header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li>projets</li>
-			<li>contact</li>
+	<header>
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+		<nav>
+			<ul>
+				<a href="./index.html"><li>projets</li></a>
+			<a href="./index.html"><li>contact</li></a>
 			<li>login</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
+
 <main>
-	
+	<section id="login">
+		<h2>Log In</h2>
+		<p class="erreur"></p>
+		<form novalidate action="#" method="post">
+			<label for="email">E-mail</label>
+            <input type="email" name="email" id="email">
+            <label for="password">Mot de passe </label>
+			<input type="password" name="password" id="password">
+            <input type="submit" id ="submit" value="Se connecter">
+		</form>
+        <a class ="reset_password" href="#"><p>Mot de passe oublié </p></a>
+	</section>
 </main>
 
 <footer>
@@ -34,5 +45,6 @@
 		</ul>
 	</nav>
 </footer>
+	<script src="Js/login.js"defer></script>
 </body>
 </html>
