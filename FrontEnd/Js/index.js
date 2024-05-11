@@ -87,3 +87,8 @@ async function filterWork() {
 }
  filterWork()
  
+ /******************************** Conexion mode edition ******************************/
+
+ const loged = localStorage
+ const logout = document.querySelector("nav .log")
+ 
