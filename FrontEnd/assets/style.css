@@ -78,12 +78,14 @@ h1 > span {
 
 }
 
+/* Lien Mot de passe oublié */
+
 a{
  color: black;
 }
+
 nav a {
-	text-decoration: none;
-	
+	text-decoration: none;	
 }
 
 h2{
@@ -132,8 +134,35 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 2em;
 }
+
+/* Filtre categoies */
+
+.filtre {
+	display: flex;
+	justify-content: center;
+}
+
+ button{
+	font-family: 'Syne';
+	font-weight: 700;
+	height: 50px;
+	text-align: center;
+	border: #1D6154 2px solid;
+	color: #1D6154;
+	border-radius: 60px;
+	margin: 0px 20px 50px 0px;
+	background-color: white ;
+	font-size: 1.2em;
+	padding-left: 40px;
+    padding-right: 40px;
+ }
+
+ button:focus {
+	background-color: #1D6154;
+	color: white;
+ }
 
 .gallery {
 	width: 100%;
@@ -146,6 +175,8 @@ li:hover {
 .gallery img {
 	width: 100%;
 }
+
+/* Message erreur connexion */
 
 .error-message{
 	color: #cc0909;
@@ -216,31 +247,6 @@ input[type="submit"] {
 	text-align: center;
 	border-radius: 60px ;
 }
-
-.filtre {
-	display: flex;
-	justify-content: center;
-}
-
- button{
-	font-family: 'Syne';
-	font-weight: 700;
-	height: 50px;
-	text-align: center;
-	border: #1D6154 2px solid;
-	color: #1D6154;
-	border-radius: 60px;
-	margin: 0px 20px 50px 0px;
-	background-color: white ;
-	font-size: 1.2em;
-	padding-left: 40px;
-    padding-right: 40px;
- }
-
- button:focus {
-	background-color: #1D6154;
-	color: white;
- }
 
 footer nav ul {
 	display: flex;

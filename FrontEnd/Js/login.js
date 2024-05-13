@@ -82,5 +82,5 @@ password.addEventListener("change", () => {
     }else{
         errorMessage.innerHTML=""
     }
-    console.log(password.value, )
+    console.log(password.value)
 })

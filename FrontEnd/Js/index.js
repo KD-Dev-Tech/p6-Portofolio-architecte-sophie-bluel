@@ -87,8 +87,32 @@ async function filterWork() {
 }
  filterWork()
  
- /******************************** Conexion mode edition ******************************/
 
- const loged = localStorage
- const logout = document.querySelector("nav .log")
- 
+
+ /******************************** Connexion Utilisateur mode edition ******************************/
+
+const modeEdition = document.querySelector("header div")
+
+function logout () {
+    const token = localStorage.getItem("token") // Récupération du token d'authentification
+    const login = document.querySelector("nav .btnlog") // Récuperation de la balise login
+    
+    if (token) {
+        login.textContent = "Logout"
+        login.removeAttribute ('href')
+        filtres.remove("")
+        login.addEventListener (("click"), () => {
+             localStorage.removeItem("token")
+             window.location.href = "index.html"           
+                })
+    }
+       
+        
+    
+
+
+
+
+
+}
+logout()
