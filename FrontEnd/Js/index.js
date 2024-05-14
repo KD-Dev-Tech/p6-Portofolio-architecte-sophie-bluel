@@ -89,30 +89,42 @@ async function filterWork() {
  
 
 
- /******************************** Connexion Utilisateur mode edition ******************************/
+ /******************************** Connexion / Deconnexion Utilisateur mode edition ******************************/
 
-const modeEdition = document.querySelector("header div")
+
+// console.log(homEdition);
 
 function logout () {
-    const token = localStorage.getItem("token") // Récupération du token d'authentification
-    const login = document.querySelector("nav .btnlog") // Récuperation de la balise login
+    const token = localStorage.getItem("token")                 // Récupération du token d'authentification
+    const login = document.querySelector("nav .btnlog")         // Récuperation de la balise login
     
-    if (token) {
-        login.textContent = "Logout"
-        login.removeAttribute ('href')
-        filtres.remove("")
-        login.addEventListener (("click"), () => {
-             localStorage.removeItem("token")
-             window.location.href = "index.html"           
+    if (token) {                                                // si le token est enregistré 
+        login.textContent = "Logout"                            // changement de texte du Login
+        login.setAttribute ("href", "#")                          // enlevement de de l'attribut lien 
+        filtres.remove("")                                      // enlevement des filtres de catégorie
+        const homEdition = document.querySelector ("div")       // Récuperation de la div
+        let icon = document.createElement("i")                  // Creation de la balise icone
+        let edit = document.createElement("span")               // Creation de la balise span
+        homEdition.classList.add("edition")                     // Ajout d'une class a la div 
+        homEdition.appendChild(icon)                            // div parent de i
+        homEdition.appendChild(edit)                            // div parent de Span
+        icon.classList.add("fa-regular", "fa-pen-to-square")    // Ajout de l'icone
+        edit.textContent ="Mode édition"   
+
+        const projet = document.querySelector("#portfolio div")  
+        let lienModif = document.createElement ("a")
+        let iconModif = document.createElement("i")
+        projet.classList.add("modif-edition")
+        projet.appendChild(iconModif)
+        projet.appendChild(lienModif)
+        iconModif.classList.add("fa-regular", "fa-pen-to-square")
+        lienModif.textContent ="modifier" 
+        lienModif.setAttribute("href","#")                      // Ajout de l'attribut lien
+
+        login.addEventListener (("click"), () => {              // ecouteur d'evenement sur le click
+             localStorage.removeItem("token")                   // Enlevement du token
+             window.location.href = "index.html"                // retour Lien origin Index.html 
                 })
     }
-       
-        
-    
-
-
-
-
-
 }
 logout()

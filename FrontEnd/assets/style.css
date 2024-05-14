@@ -80,13 +80,14 @@ h1 > span {
 
 /* Lien Mot de passe oublié */
 
-a{
+a {
  color: black;
+ text-decoration: none;
 }
-
-nav a {
-	text-decoration: none;	
-}
+ a:hover{
+	font-weight: bold;
+ }
+/*                            */
 
 h2{
 	font-family: 'Syne';
@@ -254,3 +255,28 @@ footer nav ul {
 	margin: 2em
 }
 
+/****************************** Mode édition ******************************/
+
+.edition  {
+	background-color: black;
+	display: flex;
+	height : 40px;
+	color : white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+  }
+
+  .modif-edition{
+	position: absolute;
+    display: flex;
+    width: 52%;
+    align-items: center;
+    justify-content: flex-end;
+    height: 30px;
+    left: 180px;
+	gap: 8px;
+  }
+
+  
