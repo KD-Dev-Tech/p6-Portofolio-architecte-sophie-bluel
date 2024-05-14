@@ -112,14 +112,14 @@ function logout () {
         edit.textContent ="Mode édition"   
 
         const projet = document.querySelector("#portfolio div")  
-        let lienModif = document.createElement ("a")
-        let iconModif = document.createElement("i")
         projet.classList.add("modif-edition")
+        let buttonModif = document.createElement("button")
+        let iconModif = document.createElement("i")
         projet.appendChild(iconModif)
-        projet.appendChild(lienModif)
+        projet.appendChild(buttonModif)
         iconModif.classList.add("fa-regular", "fa-pen-to-square")
-        lienModif.textContent ="modifier" 
-        lienModif.setAttribute("href","#")                      // Ajout de l'attribut lien
+        buttonModif.textContent ="modifier" 
+        buttonModif.classList.add("button-modifier")
 
         login.addEventListener (("click"), () => {              // ecouteur d'evenement sur le click
              localStorage.removeItem("token")                   // Enlevement du token
