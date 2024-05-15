@@ -6,18 +6,19 @@ const filtres = document.querySelector(".filtre")
 
 
 
-/************** Fonction qui appel l'API  image **********************/
+/************** Fonction qui appel l'API image **********************/
 
 async function getWorks() {
-    const response = await fetch ("http://localhost:5678/api/works")
-    return await response.json()
+    const array = await fetch ("http://localhost:5678/api/works")
+    return await array.json()
 }
-getWorks()
+
 
 /************ Affichage des Images dans le DOM ***************/
 
 async function createWorks (){
     const arrayCategories = await getWorks()
+    console.log(arrayCategories);
     arrayCategories.forEach((work) => {
         displayWorks(work)
     })
