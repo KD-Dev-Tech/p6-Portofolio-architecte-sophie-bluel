@@ -13,14 +13,38 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="Js/index.js"defer></script>
+	<script src="./Js/modal.js"defer></script>
 	
 </head>
 <body>
 	<div></div>
+	<div class="containerModals">
+		<div class="modalsGallery">
+			<span><i class="fa-solid fa-xmark"></i></span>
+			<h2>Galerie photo</h2>
+			<div class="galleryModals"></div>
+			<div class="border"></div>
+			<button class="buttonPhoto">Ajouter une photo</button>
+		</div>
+<!--
+		<div class="modalsAjout">
+			<span><i class="fa-solid fa-xmark"></i></span>
+			<h2>Ajout photo</h2>
+			<div class="border"></div>
+			<button class="buttonValider">Valider</button>
+		</div>
+-->
+	</div>
+
+
+
+
+
+
+
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
-		
 		<ul>
 			<a href="#portfolio"><li>projets</li></a>
 			<a href="#contact"><li>contact</li></a>
@@ -30,6 +54,7 @@
 	</nav>
 </header>
 <main>
+	
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
@@ -42,9 +67,8 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<div></div>	
-		<h2>Mes Projets</h2>
-			
+		<div></div>
+		<h2>Mes Projets</h2>		
 		<div class="filtre">
 			<button id="0">Tous</button>
 		</div>
@@ -73,6 +97,5 @@
 		</ul>
 	</nav>
 </footer>
-<script src="./Js/modal.js"></script>
 </body>
 </html>
