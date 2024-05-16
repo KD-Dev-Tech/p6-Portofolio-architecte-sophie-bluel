@@ -18,7 +18,6 @@ async function getWorks() {
 
 async function createWorks (){
     const arrayCategories = await getWorks()
-    console.log(arrayCategories);
     arrayCategories.forEach((work) => {
         displayWorks(work)
     })
@@ -127,5 +126,6 @@ function logout () {
              window.location.href = "index.html"                // retour Lien origin Index.html 
                 })
     }
+    
 }
 logout()

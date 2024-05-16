@@ -4,7 +4,8 @@ const modalsGallery = document.querySelector (".modalsGallery")
 const buttonPhoto = document.querySelector (".buttonPhoto")
 const buttonModif = document.querySelector (".button-modifier") 
 const galleriePhoto = document.querySelector (".galleryModals")
-
+const token = localStorage
+console.log(token);
 
 /************** Ouverture /  Fermeture Modals ************************/
 
@@ -28,7 +29,7 @@ containerModals.addEventListener("click", (e) => {
 async function displayGalleryModals () {
     galleriePhoto.innerHTML = ""
     const gallerie = await getWorks ()
-    gallerie.forEach( (photo) => {
+    gallerie.forEach( (work) => {
     const figure = document.createElement("figure")
     const img = document.createElement("img")
     const span = document.createElement("span")
@@ -40,11 +41,34 @@ async function displayGalleryModals () {
     trash.classList.add("fa-solid", "fa-trash-can")
     figure.classList.add("displayImg")
     span.classList.add("trash")
-    trash.id = photo.id
-    img.src = photo.imageUrl
-
+    trash.id = work.id
+    img.src = work.imageUrl
      console.log()
     })
-    
+    deleted()
 }
 displayGalleryModals()
+
+/************************* Delete **********************************/
+
+async function deleted (){
+    const trashAll = document.querySelectorAll(".fa-trash-can")
+    trashAll.forEach(trash =>{
+        trash.addEventListener("click", ()=> {   
+            console.log(token);    
+            const id = trash.id
+            const init ={
+                method: "DELETE",
+                headers: {
+                    "Authorization": "bearer  "  
+                }
+            }
+            fetch("http://localhost:5678/api/works/"+id,init)
+            
+                
+        })            
+    
+    })
+
+}
+        
