@@ -222,7 +222,8 @@ button:focus {
 }
 
 #contact input,
-#login input {
+#login input,
+.formulairePhoto input, select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -328,7 +329,7 @@ footer nav ul {
 	width: 60% ;
 	background-color: white;
 	border-radius: 10px;
-	gap: 50px;
+	gap: 40px;
 }
 
 .fa-xmark {
@@ -336,6 +337,15 @@ footer nav ul {
 	top: 13px;
     right: 20px;
 	cursor: pointer;
+	font-size: 16px;
+}
+
+.fa-arrow-left {
+	position: absolute;
+	top: 13px;
+    left: 10px;
+	cursor: pointer;
+	font-size: 21px;
 }
 
 .modalsGallery h2,
@@ -401,3 +411,46 @@ footer nav ul {
 	background-color: #0E2F28;
 }
 
+.modalsAjout{
+	display: none;
+}
+
+.ajoutPhoto {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #E8F1F6 ;
+	width: 60%;
+	gap: 20px;
+	border-radius: 3px;
+	padding: 30px;
+}
+
+.fa-image {
+	font-size: 76px;
+	color: #B9C5CC;
+}
+
+.ajoutPhoto button {
+	background-color: #CBD6DC;
+	border: none;
+	margin: 0;
+	color: #306685;
+}
+
+.formulairePhoto{
+	width: 70%;
+}
+
+.formulairePhoto form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+.formulairePhoto label {
+	font-weight: bold;
+}
+.formulairePhoto select {
+	padding-left: 10px;
+	cursor: pointer;
+}

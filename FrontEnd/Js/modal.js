@@ -1,20 +1,35 @@
 const containerModals = document.querySelector (".containerModals")
-const xmark = document.querySelector (".fa-xmark")
 const modalsGallery = document.querySelector (".modalsGallery")
+const modalsAjout = document.querySelector(".modalsAjout")
 const buttonPhoto = document.querySelector (".buttonPhoto")
 const buttonModif = document.querySelector (".button-modifier") 
 const galleriePhoto = document.querySelector (".galleryModals")
-const token = localStorage
-console.log(token);
+const xmark = document.querySelectorAll (".containerModals .fa-xmark")
+const arrow = document.querySelector (".fa-arrow-left")
+
+
+
 
 /************** Ouverture /  Fermeture Modals ************************/
 
 buttonModif.addEventListener("click", () => {
-    containerModals.style.display = "flex" 
+    containerModals.style.display = "flex"
+    
 })
 
-xmark.addEventListener("click", () => {
-    containerModals.style.display = "none"    
+xmark.forEach(xmark => {
+    xmark.addEventListener("click", () => {
+        containerModals.style.display = "none";
+    });
+});
+
+buttonPhoto.addEventListener(("click"), () =>{
+    modalsGallery.style.display = "none"
+    modalsAjout.style.display = "flex"
+})
+arrow.addEventListener(("click"), () =>{
+    modalsGallery.style.display = "flex"
+    modalsAjout.style.display = "none"
 })
 
 containerModals.addEventListener("click", (e) => {
@@ -49,26 +64,33 @@ async function displayGalleryModals () {
 }
 displayGalleryModals()
 
-/************************* Delete **********************************/
+/************************* Delete photo modale **********************************/
 
 async function deleted (){
     const trashAll = document.querySelectorAll(".fa-trash-can")
     trashAll.forEach(trash =>{
-        trash.addEventListener("click", ()=> {   
-            console.log(token);    
+        trash.addEventListener("click", (event)=> {   
+            event.preventDefault   
             const id = trash.id
             const init ={
                 method: "DELETE",
-                headers: {
-                    "Authorization": "bearer  "  
-                }
+                headers: { Authorization: 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcxNTg2NjQ3NywiZXhwIjoxNzE1OTUyODc3fQ.CtF1XuA1ReYczX8JhF1khRIjcVZFkHVSSz0r3e-Icv8'}
             }
-            fetch("http://localhost:5678/api/works/"+id,init)
-            
-                
+            fetch("http://localhost:5678/api/works/"+id,init)  
+            .then (res => {
+                console.log(res)
+                /* Suppression d'image dans la galerie */
+                displayGalleryModals()
+                getWorks()
+            })
+            .catch (error => {
+                console.error(error)
+            })             
         })            
-    
     })
-
 }
+
+/************************** Ajout photo modale  ************************/
+
+
         
