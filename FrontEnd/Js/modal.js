@@ -13,20 +13,20 @@ const arrow = document.querySelector (".fa-arrow-left")
 /************** Ouverture /  Fermeture Modals ************************/
 
 buttonModif.addEventListener("click", () => {
-    containerModals.style.display = "flex"
-    
+    containerModals.style.display = "flex" 
 })
 
 xmark.forEach(xmark => {
     xmark.addEventListener("click", () => {
         containerModals.style.display = "none";
-    });
-});
+    })
+})
 
 buttonPhoto.addEventListener(("click"), () =>{
     modalsGallery.style.display = "none"
     modalsAjout.style.display = "flex"
 })
+
 arrow.addEventListener(("click"), () =>{
     modalsGallery.style.display = "flex"
     modalsAjout.style.display = "none"
@@ -90,7 +90,41 @@ async function deleted (){
     })
 }
 
-/************************** Ajout photo modale  ************************/
+/************************** Preview photo modale  *****************/
 
+const icone = document.querySelector(".ajoutPhoto i")
+const label = document.querySelector(".ajoutPhoto label")
+const buttonAjout = document.querySelector(".modalsAjout input")
+const previewImg = document.querySelector(".ajoutPhoto img")
+const fileTypeInfoSpan =document.querySelector(".ajoutPhoto span")
 
+buttonAjout.addEventListener(("change"),()=>{
+    const file = buttonAjout.files[0];
+    console.log(file);
+    if(file){
+        const reader = new FileReader
+        reader.onload = function (e){
+            previewImg.src = e.target.result
+            previewImg.style.display = "flex"
+            fileTypeInfoSpan.style.display ="none"
+            buttonAjout.style.display ="none"
+            label.style.display ="none"
+            icone.style.display ="none"
+        }
+        reader.readAsDataURL(file)
+    }
+})
         
+/****************** Affichage categorie Input Select ****************/
+
+async function categoryModal (){
+    const select = document.querySelector("form select")
+    const categorie = await getFilters()
+    categorie.forEach(categorie => {
+        const option = document.createElement ("option")
+        option.value = categorie.id
+        select.appendChild(option)
+        option.textContent = categorie.name
+    })
+} 
+categoryModal()
