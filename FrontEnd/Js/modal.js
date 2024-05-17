@@ -121,10 +121,27 @@ async function categoryModal (){
     const select = document.querySelector("form select")
     const categorie = await getFilters()
     categorie.forEach(categorie => {
-        const option = document.createElement ("option")
+        const option = document.createElement("option")
         option.value = categorie.id
         select.appendChild(option)
         option.textContent = categorie.name
     })
 } 
 categoryModal()
+
+/******* Message erreur si les champ de modal ne sont pas remplie *****************************************/
+
+const titre = document.querySelector("form input")
+const error = document.querySelector(".formulairePhoto span")
+console.log(error);
+titre.addEventListener(("change"), ()=>{
+    if (titre.value === ""){
+        error.innerHTML = "Veuillez inserer un titre"
+    }else{
+        error.innerHTML = ""
+    }
+    console.log(titre.value)
+})
+
+/********************** Envoi du formulaire  ********************************/
+
