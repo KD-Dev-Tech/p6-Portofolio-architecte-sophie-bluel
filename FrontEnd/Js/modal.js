@@ -48,8 +48,7 @@ displayGalleryModals()
 async function deleted (){
     const trashAll = document.querySelectorAll(".fa-trash-can")
     trashAll.forEach(trash =>{
-        trash.addEventListener("click", ()=> {   
-               
+        trash.addEventListener("click", ()=> {         
             const id = trash.id
             const init ={
                 method: "DELETE",
@@ -60,11 +59,7 @@ async function deleted (){
                 console.log(res.status,"L'image a bien etait supprimé")
                 /* Suppression d'image dans la galerie */
                 displayGalleryModals()
-                displayWorks()
-
-                
-                
-                
+                displayWorks()   
             })
             .catch (error => {
                 console.error(error)
@@ -152,9 +147,7 @@ form.addEventListener("submit", async function (e)  {
     if (response.ok) {
         console.log("ok")
         displayGalleryModals()
-        displayWorks
-        
-
+        displayWorks()
     } else {
         console.log("pas ok")
     }

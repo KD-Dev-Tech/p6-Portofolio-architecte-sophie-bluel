@@ -16,7 +16,6 @@ function validateUsers() {
         errorMessage.innerHTML = "veuillez vous identifier" 
         return false
     }
-
     if (!passwordRegex.test(password.value)) {
         console.log("false")
         errorMessage.innerHTML = "Le mot de passe doit contenir au moins 5 caractères alphanumériques"
@@ -32,23 +31,19 @@ async function login() {
     if (!validateUsers()) {
         return false
     }
-
     const loginData = {
         email: email.value,
         password: password.value     
     }
-
     try {
         const response = await fetch('http://localhost:5678/api/users/login', {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(loginData)
         })
-
         if (!response.ok) {
             throw new Error('Erreur dans l’identifiant ou le mot de passe.')
         }
-
         const data = await response.json()
         localStorage.setItem('token', data.token)
         window.location.href = 'index.html'

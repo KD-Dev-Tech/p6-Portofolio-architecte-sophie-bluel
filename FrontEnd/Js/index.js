@@ -18,31 +18,26 @@ getWorks()
 
 async function displayWorks () {                                        // Fonction Asynchrone
     const works = await getWorks()
-      gallery.innerHTML=""                                               // Stock les donné recuperé attendu de getWorks dans une variable works
+    gallery.innerHTML=""                                                // Stock les donné recuperé attendu de getWorks dans une variable works
     works.forEach((work) => {                                           //  forEach parcours chaque element du tableau works
         createWorks(work)                                               // appel de la function createWorks
     })
-    console.log(works)
+    // console.log(works)
 }
 displayWorks()
 
 /******* Fonction qui creer la structure de l'image  ********/ 
 
 async function createWorks(work) {
-    
-        const figure = document.createElement("figure")
-        const img = document.createElement("img")
-        const figcaption = document.createElement("figcaption")
-        
-        img.src = work.imageUrl
-        figcaption.textContent = work.title
-        
-        figure.appendChild(img)
-        figure.appendChild(figcaption)
-         
-        gallery.appendChild(figure)
-        figure.classList.add(".gallery")
-      
+    const figure = document.createElement("figure")
+    const img = document.createElement("img")
+    const figcaption = document.createElement("figcaption")    
+    img.src = work.imageUrl
+    figcaption.textContent = work.title    
+    figure.appendChild(img)
+    figure.appendChild(figcaption)       
+    gallery.appendChild(figure)
+    figure.classList.add(".gallery")    
 }
 
 /********* Fonction qui appel l'API categorie  **************/
@@ -96,9 +91,7 @@ async function filterWork() {
  filterWork()
  
 
-
  /*********** Connexion / Deconnexion Utilisateur mode edition ******************/
-
 
 // console.log(homEdition);
 
@@ -108,11 +101,11 @@ function logout () {
     
     if (token) {                                                // si le token est enregistré 
         login.textContent = "Logout"                            // changement de texte du Login
-        login.setAttribute ("href", "#")                          // enlevement de de l'attribut lien 
+        login.setAttribute ("href", "#")                        // enlevement de de l'attribut lien 
         filtres.remove("")                                      // enlevement des filtres de catégorie
         const homEdition = document.querySelector ("div")       // Récuperation de la div
-        const icon = document.createElement("i")                  // Creation de la balise icone
-        const edit = document.createElement("span")               // Creation de la balise span
+        const icon = document.createElement("i")                // Creation de la balise icone
+        const edit = document.createElement("span")             // Creation de la balise span
         homEdition.classList.add("edition")                     // Ajout d'une class a la div 
         homEdition.appendChild(icon)                            // div parent de i
         homEdition.appendChild(edit)                            // div parent de Span
