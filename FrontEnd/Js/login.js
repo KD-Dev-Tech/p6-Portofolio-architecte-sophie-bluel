@@ -13,7 +13,7 @@ function validateUsers() {
 
     if (!emailRegex.test(email.value)) {
         console.log("false")
-        errorMessage.innerHTML = "Adresse email invalide" 
+        errorMessage.innerHTML = "veuillez vous identifier" 
         return false
     }
 
@@ -68,7 +68,7 @@ form.addEventListener("submit", (event) => {
 // Écouteur d'événement sur la balise email
 email.addEventListener("change", () => {
     if (email.value === "") {
-        errorMessage.innerHTML = "veuillez vous identifier"     
+        errorMessage.innerHTML = "Email invalide"     
     }else{
         errorMessage.innerHTML=""
     }
@@ -77,8 +77,8 @@ email.addEventListener("change", () => {
 
 // Écouteur d'événement sur la balise Mot de passe
 password.addEventListener("change", () => {
-    if (password.value === "") {
-        errorMessage.innerHTML = "veuillez vous identifier" 
+    if (password.value === "" ) {
+        errorMessage.innerHTML = "Veuillez entrer un Mot de passe " 
     }else{
         errorMessage.innerHTML=""
     }

@@ -9,7 +9,7 @@ const buttonPhoto = document.querySelector (".buttonPhoto")
 const modalsAjout = document.querySelector(".modalsAjout")
 const form = document.querySelector(".modalsAjout form")
 const title = document.getElementById('titre')
-const errorTitle = document.querySelector(".formulairePhoto span")
+const errorForm = document.querySelector(".formulairePhoto span")
 const icone = document.querySelector(".ajoutPhoto i")
 const label = document.querySelector(".ajoutPhoto label")
 const buttonAjout = document.querySelector(".modalsAjout input[type='file']")
@@ -17,13 +17,7 @@ const previewImg = document.querySelector(".modalsAjout img")
 const category = document.getElementById('category')
 const span = document.querySelector(".ajoutPhoto span")
 
-
-
-
-
-
-
-/******************* Affichage photos modal*************************/
+/******************* Affichage photos dans la modal *************************/
 
 async function displayGalleryModals () {
     galleriePhoto.innerHTML = ""
@@ -42,30 +36,35 @@ async function displayGalleryModals () {
     span.classList.add("trash")
     trash.id = work.id
     img.src = work.imageUrl
-     console.log()
+    //  console.log(img.src)
     })
     deleted()
+    
 }
 displayGalleryModals()
 
 /************************* Delete photo modale **********************************/
 
-function deleted (){
+async function deleted (){
     const trashAll = document.querySelectorAll(".fa-trash-can")
     trashAll.forEach(trash =>{
-        trash.addEventListener("click", (event)=> {   
-            event.preventDefault   
+        trash.addEventListener("click", ()=> {   
+               
             const id = trash.id
             const init ={
                 method: "DELETE",
                 headers: { 'Authorization': `Bearer ${token}`}
             }
-            fetch("http://localhost:5678/api/works/"+id,init)  
+             fetch("http://localhost:5678/api/works/"+id,init)  
             .then (res => {
-                console.log(res)
+                console.log(res.status,"L'image a bien etait supprimé")
                 /* Suppression d'image dans la galerie */
                 displayGalleryModals()
-                getWorks()
+                displayWorks()
+
+                
+                
+                
             })
             .catch (error => {
                 console.error(error)
@@ -90,21 +89,30 @@ categoryModal()
 
 /******* Message erreur si les champ titre n'est pas remplie *****************************************/
 
-function errorMessage (){
-title.addEventListener(("change"), ()=>{
-    if (title.value === ""){
-        errorTitle.innerHTML = "Veuillez inserer un titre"
-        console.log(false)
-    }else{
-        errorTitle.innerHTML = ""
-        }
-    })
+function validateForm() {
+    let isValid = true;
+    errorForm.innerHTML = "" 
+    if (title.value.trim() === "") {
+        errorForm.innerHTML += "Veuillez insérer un titre. "
+        isValid = false
+    }
+    if (!buttonAjout.files.length) {
+        errorForm.innerHTML += "Veuillez ajouter une image."
+        isValid = false
+    }
+    return isValid
 }
-errorMessage()
+form.addEventListener('submit', (e) => {
+    if (!validateForm()) {
+        e.preventDefault()
+    }
+title.addEventListener('input', validateForm)
+buttonAjout.addEventListener('change', validateForm)
+})
+
+
 /************************** Preview photo modale  *****************/
-
-
-
+function preview (){
 buttonAjout.addEventListener(("change"),()=>{
     const file = buttonAjout.files[0];
     console.log(file);
@@ -122,9 +130,9 @@ buttonAjout.addEventListener(("change"),()=>{
         reader.readAsDataURL(file)
     }
 })
-
+}
+preview()
 /********************** Envoi du formulaire  ********************************/
-
 
 form.addEventListener("submit", async function (e)  {
     e.preventDefault()
@@ -142,7 +150,11 @@ form.addEventListener("submit", async function (e)  {
         body:formData
     })
     if (response.ok) {
-        console.log("ok") 
+        console.log("ok")
+        displayGalleryModals()
+        displayWorks
+        
+
     } else {
         console.log("pas ok")
     }
@@ -151,36 +163,6 @@ form.addEventListener("submit", async function (e)  {
 } 
 })  
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /************** Ouverture /  Fermeture Modals ************************/
 
 buttonModif.addEventListener("click", () => {

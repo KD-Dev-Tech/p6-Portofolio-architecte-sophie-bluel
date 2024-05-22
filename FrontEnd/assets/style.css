@@ -253,6 +253,7 @@ input[type="submit"] {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {
@@ -326,10 +327,10 @@ footer nav ul {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 60% ;
+	width: 50% ;
 	background-color: white;
 	border-radius: 10px;
-	gap: 40px;
+	gap: 20px;
 }
 
 .fa-xmark {
@@ -471,7 +472,7 @@ footer nav ul {
 .modalsAjout form {
 	display: flex;
 	flex-direction: column;
-	gap: 47px;
+	gap: 25px;
     align-items: center;
 	width: 70%;
 }
@@ -485,6 +486,6 @@ footer nav ul {
 }
 
 label span {
-	margin-left: 100px;
+	margin-left: 10px;
 	color: red;
 }

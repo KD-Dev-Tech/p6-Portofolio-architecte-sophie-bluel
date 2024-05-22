@@ -6,38 +6,46 @@ const filtres = document.querySelector(".filtre")
 
 
 
-/************** Fonction qui appel l'API image **********************/
+/************ Fonction qui appel l'API des works  *********/
 
-async function getWorks() {
-    const array = await fetch ("http://localhost:5678/api/works")
-    return await array.json()
+async function getWorks() {                                             // Fonction asynchrone
+    const response = await fetch ("http://localhost:5678/api/works")    // Attend la promesse de recuperation de fetch et la stock dans la variable 
+    return await response.json()                                        // Retourne la response de l'objet recupéré une fois attendu et le convertit en json
 }
-
+getWorks()
 
 /************ Affichage des Images dans le DOM ***************/
 
-async function createWorks (){
-    const arrayCategories = await getWorks()
-    arrayCategories.forEach((work) => {
-        displayWorks(work)
+async function displayWorks () {                                        // Fonction Asynchrone
+    const works = await getWorks()
+      gallery.innerHTML=""                                               // Stock les donné recuperé attendu de getWorks dans une variable works
+    works.forEach((work) => {                                           //  forEach parcours chaque element du tableau works
+        createWorks(work)                                               // appel de la function createWorks
     })
+    console.log(works)
 }
-createWorks()
+displayWorks()
 
-function displayWorks(work) {
+/******* Fonction qui creer la structure de l'image  ********/ 
+
+async function createWorks(work) {
+    
         const figure = document.createElement("figure")
         const img = document.createElement("img")
         const figcaption = document.createElement("figcaption")
+        
         img.src = work.imageUrl
         figcaption.textContent = work.title
+        
         figure.appendChild(img)
         figure.appendChild(figcaption)
+         
         gallery.appendChild(figure)
-        figure.classList.add(".gallery")   
+        figure.classList.add(".gallery")
+      
 }
 
-
-/**************** Fonction qui appel l'API categorie  **********************/
+/********* Fonction qui appel l'API categorie  **************/
 
 async function getFilters() {
     const response = await fetch ("http://localhost:5678/api/categories")
@@ -45,7 +53,7 @@ async function getFilters() {
 }
 
 
-/*************** Affichage Des bouton filtres ********************/
+/********** Affichage Des bouton filtres ****************/
 
 async function ButtonFilters() {
     const buttons = await getFilters()
@@ -60,7 +68,7 @@ async function ButtonFilters() {
 }
 ButtonFilters()
 
-/****************** Filtrer au click par categories *****************************/
+/****************** Filtrer au click par categories ***********/
 
 async function filterWork() {
     const arrayCategories = await getWorks()
@@ -75,10 +83,10 @@ async function filterWork() {
                 return work.categoryId == btnId                  
                 })               
                 filteredWorks.forEach ((work) => {
-                    displayWorks(work)  
+                    createWorks(work)  
                 })
             }else{
-                createWorks()
+                displayWorks()
             }
             // console.log(btnId)
         })
@@ -89,7 +97,7 @@ async function filterWork() {
  
 
 
- /******************************** Connexion / Deconnexion Utilisateur mode edition ******************************/
+ /*********** Connexion / Deconnexion Utilisateur mode edition ******************/
 
 
 // console.log(homEdition);
@@ -103,8 +111,8 @@ function logout () {
         login.setAttribute ("href", "#")                          // enlevement de de l'attribut lien 
         filtres.remove("")                                      // enlevement des filtres de catégorie
         const homEdition = document.querySelector ("div")       // Récuperation de la div
-        let icon = document.createElement("i")                  // Creation de la balise icone
-        let edit = document.createElement("span")               // Creation de la balise span
+        const icon = document.createElement("i")                  // Creation de la balise icone
+        const edit = document.createElement("span")               // Creation de la balise span
         homEdition.classList.add("edition")                     // Ajout d'une class a la div 
         homEdition.appendChild(icon)                            // div parent de i
         homEdition.appendChild(edit)                            // div parent de Span
@@ -113,8 +121,8 @@ function logout () {
 
         const projet = document.querySelector("#portfolio div")  
         projet.classList.add("modif-edition")
-        let buttonModif = document.createElement("button")
-        let iconModif = document.createElement("i")
+        const buttonModif = document.createElement("button")
+        const iconModif = document.createElement("i")
         projet.appendChild(iconModif)
         projet.appendChild(buttonModif)
         iconModif.classList.add("fa-regular", "fa-pen-to-square")
