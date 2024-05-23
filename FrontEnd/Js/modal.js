@@ -17,6 +17,7 @@ const previewImg = document.querySelector(".modalsAjout img")
 const category = document.getElementById('category')
 const span = document.querySelector(".ajoutPhoto span")
 
+
 /******************* Affichage photos dans la modal *************************/
 
 async function displayGalleryModals () {
@@ -39,7 +40,6 @@ async function displayGalleryModals () {
     //  console.log(img.src)
     })
     deleted()
-    
 }
 displayGalleryModals()
 
@@ -68,21 +68,42 @@ async function deleted (){
     })
 }
 
-/****************** Affichage categorie Input Select ****************/
+/************************** Preview photo modale  *****************/
 
-async function categoryModal (){
-    const select = document.querySelector("form select")
-    const categorie = await getFilters()
-    categorie.forEach(categorie => {
-        const option = document.createElement("option")
-        option.value = categorie.id
-        select.appendChild(option)
-        option.textContent = categorie.name
-    })
-} 
-categoryModal()
+function preview (){
+buttonAjout.addEventListener(("change"),()=>{
+    const file = buttonAjout.files[0];
+    // console.log(file);
+    if(file){
+        const reader = new FileReader()
+        reader.onload = function (e){
+            previewImg.innerHTML=""
+            previewImg.src = e.target.result
+            // console.log(previewImg);
+            previewImg.style.display = "flex"
+            span.style.display ="none"
+            buttonAjout.style.display ="none"
+            label.style.display ="none"
+            icone.style.display ="none"
+        }
+        reader.readAsDataURL(file)
+        console.log(file);
+    }
+})
+}
+preview()
 
-/******* Message erreur si les champ titre n'est pas remplie *****************************************/
+/************************** Reset Preview photo modale  *****************/
+
+function resetPreview () {
+    previewImg.style.display="none"
+    span.style.display ="flex"
+    buttonAjout.style.display ="none"
+    label.style.display ="flex"
+    icone.style.display ="flex"  
+}
+
+/******* Message erreur si les champ titre n'est pas remplie *************/
 
 function validateForm() {
     let isValid = true;
@@ -101,32 +122,31 @@ form.addEventListener('submit', (e) => {
     if (!validateForm()) {
         e.preventDefault()
     }
-title.addEventListener('input', validateForm)
-buttonAjout.addEventListener('change', validateForm)
+    title.addEventListener('input', validateForm)
+    buttonAjout.addEventListener('change', validateForm)
 })
 
+/****************** Affichage categorie Input Select ****************/
 
-/************************** Preview photo modale  *****************/
-function preview (){
-buttonAjout.addEventListener(("change"),()=>{
-    const file = buttonAjout.files[0];
-    console.log(file);
-    if(file){
-        const reader = new FileReader()
-        reader.onload = function (e){
-            previewImg.src = e.target.result
-            console.log(previewImg);
-            previewImg.style.display = "flex"
-            span.style.display ="none"
-            buttonAjout.style.display ="none"
-            label.style.display ="none"
-            icone.style.display ="none"
-        }
-        reader.readAsDataURL(file)
-    }
-})
+async function selectCategoryModal (){
+    const select = document.querySelector("form select")
+    const categorie = await getFilters()
+    categorie.innerHTML=""
+    categorie.forEach(categorie => {
+        const option = document.createElement("option")
+        option.value = categorie.id
+        select.appendChild(option)
+        option.textContent = categorie.name
+    })
+} 
+selectCategoryModal()
+
+/******************** Reset Formulaire  *******************************************/
+
+function resetForm (){
+    form.reset()
 }
-preview()
+
 /********************** Envoi du formulaire  ********************************/
 
 form.addEventListener("submit", async function (e)  {
@@ -145,11 +165,14 @@ form.addEventListener("submit", async function (e)  {
         body:formData
     })
     if (response.ok) {
-        console.log("ok")
+        console.log("l'envoie a etait effectuer ",response.status)
         displayGalleryModals()
         displayWorks()
+        closeModal(containerModals)
+        closeModal(modalsAjout)
+        openModal(modalsGallery)
     } else {
-        console.log("pas ok")
+        console.log("Probleme de donées ")
     }
 } catch (error) {
     console.error('Erreur lors de la récupération des données :', error);
@@ -158,29 +181,52 @@ form.addEventListener("submit", async function (e)  {
  
 /************** Ouverture /  Fermeture Modals ************************/
 
-buttonModif.addEventListener("click", () => {
-    containerModals.style.display = "flex" 
-})
+function openModal (modal){
+    modal.style.display ="flex"
+}
+
+function closeModal (modal){
+    modal.style.display = "none"
+}
 
 xmark.forEach(xmark => {
     xmark.addEventListener("click", () => {
-        containerModals.style.display = "none";
+        closeModal(containerModals)
+        closeModal(modalsAjout)
+        openModal(modalsGallery)    
     })
 })
 
-buttonPhoto.addEventListener(("click"), () =>{
-    modalsGallery.style.display = "none"
-    modalsAjout.style.display = "flex"
-})
-
 arrow.addEventListener(("click"), () =>{
-    modalsGallery.style.display = "flex"
-    modalsAjout.style.display = "none"
+    closeModal(modalsAjout)
+    openModal(modalsGallery)   
 })
 
 containerModals.addEventListener("click", (e) => {
     if(e.target === containerModals ){
-        containerModals.style.display = "none"
+        closeModal(containerModals)
+        openModal(modalsGallery)
+        closeModal(modalsAjout)     
     }
 // console.log(e.target.className);
 })
+
+buttonModif.addEventListener("click",() => {
+    openModal(containerModals)
+})
+
+buttonPhoto.addEventListener("click",() => {
+    openModal(modalsAjout)
+    closeModal(modalsGallery)
+    resetForm()
+    resetPreview()
+})
+
+
+
+
+
+
+
+
+

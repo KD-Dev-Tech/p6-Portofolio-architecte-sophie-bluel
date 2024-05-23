@@ -434,6 +434,7 @@ footer nav ul {
 }
 
 .ajoutPhoto label {
+	align-items: center;
 	background-color: #CBD6DC;
 	border: none;
 	margin: 0;

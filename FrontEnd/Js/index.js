@@ -1,10 +1,7 @@
-
 /************ Variables General ***********/
 
 const gallery = document.querySelector(".gallery")
 const filtres = document.querySelector(".filtre")
-
-
 
 /************ Fonction qui appel l'API des works  *********/
 
@@ -19,7 +16,7 @@ getWorks()
 async function displayWorks () {                                        // Fonction Asynchrone
     const works = await getWorks()
     gallery.innerHTML=""                                                // Stock les donné recuperé attendu de getWorks dans une variable works
-    works.forEach((work) => {                                           //  forEach parcours chaque element du tableau works
+    works.forEach((work) => {                                           // forEach parcours chaque element du tableau works
         createWorks(work)                                               // appel de la function createWorks
     })
     // console.log(works)
