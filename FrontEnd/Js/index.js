@@ -15,9 +15,9 @@ getWorks()
 
 async function displayWorks () {                                        // Fonction Asynchrone
     const works = await getWorks()
-    gallery.innerHTML=""                                                // Stock les donné recuperé attendu de getWorks dans une variable works
-    works.forEach((work) => {                                           // forEach parcours chaque element du tableau works
-        createWorks(work)                                               // appel de la function createWorks
+    gallery.innerHTML=""                                                
+    works.forEach((work) => {                                           
+        createWorks(work)                                               
     })
     // console.log(works)
 }
@@ -25,7 +25,7 @@ displayWorks()
 
 /******* Fonction qui creer la structure de l'image  ********/ 
 
-async function createWorks(work) {
+function createWorks(work) {
     const figure = document.createElement("figure")
     const img = document.createElement("img")
     const figcaption = document.createElement("figcaption")    

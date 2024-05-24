@@ -16,7 +16,10 @@ const buttonAjout = document.querySelector(".modalsAjout input[type='file']")
 const previewImg = document.querySelector(".modalsAjout img")
 const category = document.getElementById('category')
 const span = document.querySelector(".ajoutPhoto span")
+const buttonValidate = document.querySelector("form .buttonValider")
+const test =document.querySelector("form button")
 
+// buttonValidate.disabled = true
 
 /******************* Affichage photos dans la modal *************************/
 
@@ -56,7 +59,7 @@ async function deleted (){
             }
              fetch("http://localhost:5678/api/works/"+id,init)  
             .then (res => {
-                console.log(res.status,"L'image a bien etait supprimé")
+                console.log("L'image a bien etait supprimé voici le status: ",res.status, " et son numero id: ",id)
                 /* Suppression d'image dans la galerie */
                 displayGalleryModals()
                 displayWorks()   
@@ -104,11 +107,27 @@ function resetPreview () {
 }
 
 /******* Message erreur si les champ titre n'est pas remplie *************/
+ 
+ function validateForm() {
+    verifChamp()
+    form.addEventListener("input",() => {
+        errorForm.innerHTML = ""
+    if (!title.value =="" && !buttonAjout.files.length ==""){
+        buttonValidate.classList.remove ("buttonValider")
+        buttonValidate.classList.add ("buttonValiderOk")
+    }else{
+        buttonValidate.classList.remove("buttonValiderOk");
+        buttonValidate.classList.add("buttonValider");
+        }
+   }) 
+}   
+validateForm()
 
-function validateForm() {
-    let isValid = true;
-    errorForm.innerHTML = "" 
-    if (title.value.trim() === "") {
+async function verifChamp () {
+    form.addEventListener("submit",() =>{
+        let isValid = true
+        errorForm.innerHTML = "" 
+    if (title.value === "") {
         errorForm.innerHTML += "Veuillez insérer un titre. "
         isValid = false
     }
@@ -116,15 +135,22 @@ function validateForm() {
         errorForm.innerHTML += "Veuillez ajouter une image."
         isValid = false
     }
-    return isValid
+    return isValid 
+    })
 }
-form.addEventListener('submit', (e) => {
-    if (!validateForm()) {
-        e.preventDefault()
+
+/*************** changement de couleur Button validation de formulaire  ****************/
+
+function butttonValidation (isValid){
+    if (isValid){
+        buttonValidate.classList.remove ("buttonValider")
+        buttonValidate.classList.add ("buttonValiderOk")
+    }else{
+        buttonValidate.classList.remove("buttonValiderOk");
+        buttonValidate.classList.add("buttonValider");
     }
-    title.addEventListener('input', validateForm)
-    buttonAjout.addEventListener('change', validateForm)
-})
+}
+
 
 /****************** Affichage categorie Input Select ****************/
 
@@ -145,40 +171,43 @@ selectCategoryModal()
 
 function resetForm (){
     form.reset()
+    errorForm.innerHTML="" 
 }
 
 /********************** Envoi du formulaire  ********************************/
 
-form.addEventListener("submit", async function (e)  {
+async function submitForm(e) {
     e.preventDefault()
     try{
-        const formData = new FormData();
-        formData.append('image', buttonAjout.files[0]);
-        formData.append('title', title.value);
-        formData.append('category', category.value);
-        
-        const response = await fetch('http://localhost:5678/api/works/', {
-        method:'POST',
-        headers:{
-            Authorization: `Bearer ${token}`
-        },
-        body:formData
-    })
-    if (response.ok) {
-        console.log("l'envoie a etait effectuer ",response.status)
-        displayGalleryModals()
-        displayWorks()
-        closeModal(containerModals)
-        closeModal(modalsAjout)
-        openModal(modalsGallery)
-    } else {
-        console.log("Probleme de donées ")
-    }
-} catch (error) {
-    console.error('Erreur lors de la récupération des données :', error);
-} 
-})  
- 
+            const formData = new FormData();
+            formData.append('image', buttonAjout.files[0]);
+            formData.append('title', title.value);
+            formData.append('category', category.value);
+            
+            const response = await fetch('http://localhost:5678/api/works/', {
+            method:'POST',
+            headers:{
+                Authorization: `Bearer ${token}`
+            },
+            body:formData
+        })
+        if (response.ok) {
+            console.log("l'envoie du Fichier:",buttonAjout.name,"Titre:",title.value,"Categorie:",category.value,"a etait effectuer voici le statut:",response.status)
+            await displayGalleryModals()
+            await displayWorks()
+            closeModal(containerModals)
+            closeModal(modalsAjout)
+            openModal(modalsGallery)
+        } else {
+            console.log("Probleme de recuperation de donées voici le satus: ",response.status)
+        }
+    } catch (error) {
+        console.error('Erreur lors de la récupération des données :', error);
+    } 
+}
+form.addEventListener("submit", submitForm)
+
+
 /************** Ouverture /  Fermeture Modals ************************/
 
 function openModal (modal){
@@ -193,20 +222,23 @@ xmark.forEach(xmark => {
     xmark.addEventListener("click", () => {
         closeModal(containerModals)
         closeModal(modalsAjout)
-        openModal(modalsGallery)    
+        openModal(modalsGallery)
+        butttonValidation()    
     })
 })
 
 arrow.addEventListener(("click"), () =>{
     closeModal(modalsAjout)
-    openModal(modalsGallery)   
+    openModal(modalsGallery)  
+    butttonValidation() 
 })
 
 containerModals.addEventListener("click", (e) => {
     if(e.target === containerModals ){
         closeModal(containerModals)
         openModal(modalsGallery)
-        closeModal(modalsAjout)     
+        closeModal(modalsAjout)
+        butttonValidation()     
     }
 // console.log(e.target.className);
 })
@@ -220,6 +252,7 @@ buttonPhoto.addEventListener("click",() => {
     closeModal(modalsGallery)
     resetForm()
     resetPreview()
+    butttonValidation()
 })
 
 

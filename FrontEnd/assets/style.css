@@ -391,6 +391,10 @@ footer nav ul {
 	border: 1px solid #B3B3B3;
 	width: 100%;
 }
+.borderGallerie {
+	border: 1px solid #B3B3B3;
+	width: 70%;
+}
 
 .buttonPhoto,
 .buttonValider {
@@ -406,6 +410,16 @@ footer nav ul {
 .buttonValider {
 	background-color: #A7A7A7;
 	border: none;
+}
+.buttonValider:focus {
+	background-color: #A7A7A7;
+	border: none;
+}
+
+.buttonValiderOk {
+	background-color: #1D6154;
+	border: none;
+	color: white;
 }
 
 .buttonPhoto:hover {

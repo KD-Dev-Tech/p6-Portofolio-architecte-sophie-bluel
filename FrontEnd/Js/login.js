@@ -1,8 +1,8 @@
 /******************************* Variable general ***************************************/
 
-const form = document.querySelector('form')                // Recuperation formulaire 
+const form = document.querySelector("form")                // Recuperation formulaire 
 const email = document.querySelector("form #email")        // Recuperation balise email 
-const password = document.querySelector('form #password')  // Recuperation balise password 
+const password = document.querySelector("form #password")  // Recuperation balise password 
 const errorMessage = document.querySelector("#login p")    // Recuperation balise p message d'erreur
 
 /************************ Validation Formulaire  **************************************/
@@ -42,7 +42,7 @@ async function login() {
             body: JSON.stringify(loginData)
         })
         if (!response.ok) {
-            throw new Error('Erreur dans l’identifiant ou le mot de passe.')
+            throw new Error("Erreur dans l’identifiant ou le mot de passe.")
         }
         const data = await response.json()
         localStorage.setItem('token', data.token)
