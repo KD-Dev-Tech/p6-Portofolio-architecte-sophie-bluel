@@ -1,11 +1,12 @@
 /************ Variables General ***********/
 
-const gallery = document.querySelector(".gallery")
-const filtres = document.querySelector(".filtre")
+const gallery = document.querySelector(".gallery")                      // Recuperation dans le DOM de la div portant la class gallery qui sera stocké dans une variable nommé gallery
+const filtres = document.querySelector(".filtre")                       // Recuperation dans le DOM de la div portant la class filtre qui sera stocké dans une variable nommé filtres
+
 
 /************ Fonction qui appel l'API des works  *********/
 
-async function getWorks() {                                             // Fonction asynchrone
+async function getWorks() {                                             // Fonction asynchrone qui appelle l'API pour les routes 
     const response = await fetch ("http://localhost:5678/api/works")    // Attend la promesse de recuperation de fetch et la stock dans la variable 
     return await response.json()                                        // Retourne la response de l'objet recupéré une fois attendu et le convertit en json
 }
@@ -13,11 +14,11 @@ getWorks()
 
 /************ Affichage des Images dans le DOM ***************/
 
-async function displayWorks () {                                        // Fonction Asynchrone
-    const works = await getWorks()
-    gallery.innerHTML=""                                                
-    works.forEach((work) => {                                           
-        createWorks(work)                                               
+async function displayWorks () {                                        // Fonction Asynchrone qui affiche les images  
+    const works = await getWorks()                                      // Stock les donné récuperé de get works dans une variable works
+    gallery.innerHTML=""                                                // Vide la gallery image pour ne pas faire de doublons
+    works.forEach((work) => {                                           // creation d'une boucle pour chaque works  
+        createWorks(work)                                               // Appel de fonction createWorks pour chaque works
     })
     // console.log(works)
 }
@@ -25,36 +26,36 @@ displayWorks()
 
 /******* Fonction qui creer la structure de l'image  ********/ 
 
-function createWorks(work) {
-    const figure = document.createElement("figure")
-    const img = document.createElement("img")
-    const figcaption = document.createElement("figcaption")    
-    img.src = work.imageUrl
-    figcaption.textContent = work.title    
-    figure.appendChild(img)
-    figure.appendChild(figcaption)       
-    gallery.appendChild(figure)
-    figure.classList.add(".gallery")    
+function createWorks(work) {                                            // Fonction qui creer la structure de l'image 
+    const figure = document.createElement("figure")                     // Creation d'un element <figure> dans le DOM
+    const img = document.createElement("img")                           // Creation d'un element <img> dans le DOM pour afficher l'image
+    const figcaption = document.createElement("figcaption")             // Creation d'un element <figcaption> dans le DOM pour afficher le titre
+    img.src = work.imageUrl                                             // Attribution de l'URL de l'image récupérée à l'élément <img>
+    figcaption.textContent = work.title                                 // Attribution du titre récupéré à l'élément <figcaption>
+    figure.appendChild(img)                                             // Ajout de l'élément <img> à l'élément <figure>
+    figure.appendChild(figcaption)                                      // Ajout de l'élément <figcaption> à l'élément <figure>
+    gallery.appendChild(figure)                                         // Ajout de l'élément <figure> à l'élément <gallery>
+    figure.classList.add(".gallery")                                    // Ajout d'une class gallery a l'element <figure> 
 }
 
 /********* Fonction qui appel l'API categorie  **************/
 
-async function getFilters() {
-    const response = await fetch ("http://localhost:5678/api/categories")
-    return await response.json()
+async function getFilters() {                                               // Fonction asynchrone qui appelle l'API pour les categories
+    const response = await fetch ("http://localhost:5678/api/categories")   // Attend la promesse de recuperation de fetch et la stock dans la variable 
+    return await response.json()                                            // Retourne la response de l'objet recupéré une fois attendu et le convertit en json
 }
 
 
 /********** Affichage Des bouton filtres ****************/
 
-async function ButtonFilters() {
-    const buttons = await getFilters()
+async function ButtonFilters() {                                        // Fonction asynchrone qui affiche les bouttons pour les categories
+    const buttons = await getFilters()                                  // Stock les donnée récuperé de getFilters dans une variable buttons
     // console.log(buttons);
-    buttons.forEach(category => {
-        const btn = document.createElement("button")
-        btn.textContent = category.name
-        btn.id = category.id
-        filtres.appendChild(btn)
+    buttons.forEach(category => {                                       // Creation du boucle qui parcour chaque element de buttons
+        const btn = document.createElement("button")                    // creation d'un element <button> dans le DOM
+        btn.textContent = category.name                                 // Attribution du nom récupéré a l'element <btn>
+        btn.id = category.id                                            // Attributuin de id récupéré de <btn>
+        filtres.appendChild(btn)                                        // Ajout de l'element <btn> a l'element <filtres>
         //  console.log(buttons)
     })
 }
@@ -62,23 +63,23 @@ ButtonFilters()
 
 /****************** Filtrer au click par categories ***********/
 
-async function filterWork() {
-    const arrayCategories = await getWorks()
-    // console.log(arrayCategories);
-    const buttons = document.querySelectorAll(".filtre button")
-    buttons.forEach((button) =>{
-        button.addEventListener("click", (event) => {
-            btnId = event.target.id
-            gallery.innerHTML = ""
-            if (btnId !== "0"){
-                const filteredWorks = arrayCategories.filter((work) => {
-                return work.categoryId == btnId                  
+async function filterWork() {                                               // Fonction asynchrone qui permet de filtré par categorie 
+    const arrayCategories = await getWorks()                                // Stock les donneé récupéré de getworks dans arrayCategories
+    // console.log(arrayCategories);            
+    const buttons = document.querySelectorAll(".filtre button")             // Sélectionne tous les boutons de filtre dans le DOM
+    buttons.forEach((button) =>{                                            // Boucle à travers chaque bouton dans la NodeList buttons avec l'argument button
+        button.addEventListener("click", (event) => {                       // Ajout d'un écouteur d'événements sur le clic de chaque bouton
+            btnId = event.target.id                                         // Récupération de l'ID du bouton sur lequel l'utilisateur a cliqué
+            gallery.innerHTML = ""                                          // Vide la gallery pour ne pas faire de doublons
+            if (btnId !== "0"){                                             // Vérification si l'ID du bouton est différent de "0"
+                const filteredWorks = arrayCategories.filter((work) => {    // Filtrage des œuvres en fonction de la catégorie sélectionnée
+                return work.categoryId == btnId                             // Retourne les œuvres dont l'ID de catégorie correspond à btnId
                 })               
-                filteredWorks.forEach ((work) => {
-                    createWorks(work)  
+                filteredWorks.forEach ((work) => {                          // Boucle qui parcour chaque filteredWorks avec l'argument work
+                    createWorks(work)                                       // Appel de la fonction createWorks pour chaque filteredWorks
                 })
-            }else{
-                displayWorks()
+            }else{                                                          // Si l'ID du bouton est "0", afficher toutes les œuvres
+                displayWorks()                                              // Appel de la fonction displayWorks pour afficher toutes les œuvres
             }
             // console.log(btnId)
         })
@@ -92,36 +93,37 @@ async function filterWork() {
 
 // console.log(homEdition);
 
-function logout () {
-    const token = localStorage.getItem("token")                 // Récupération du token d'authentification
-    const login = document.querySelector("nav .btnlog")         // Récuperation de la balise login
+function logout () {                                                    // Fonction qui permet d'avoir le mode edition 
+    const token = localStorage.getItem("token")                         // Récupération du token d'authentification
+    const login = document.querySelector("nav .btnlog")                 // Récuperation de la balise login
     
-    if (token) {                                                // si le token est enregistré 
-        login.textContent = "Logout"                            // changement de texte du Login
-        login.setAttribute ("href", "#")                        // enlevement de de l'attribut lien 
-        filtres.remove("")                                      // enlevement des filtres de catégorie
-        const homEdition = document.querySelector ("div")       // Récuperation de la div
-        const icon = document.createElement("i")                // Creation de la balise icone
-        const edit = document.createElement("span")             // Creation de la balise span
-        homEdition.classList.add("edition")                     // Ajout d'une class a la div 
-        homEdition.appendChild(icon)                            // div parent de i
-        homEdition.appendChild(edit)                            // div parent de Span
-        icon.classList.add("fa-regular", "fa-pen-to-square")    // Ajout de l'icone
-        edit.textContent ="Mode édition"   
+    if (token) {                                                        // si le token est present 
+        login.textContent = "Logout"                                    // changement du texte de "Login" à "Logout"
+        login.setAttribute ("href", "#")                                // Suppression du lien de "Logout" pour empecher de retourner sur index.htmml
+        filtres.remove("")                                              // Suppression des filtres de catégorie
+// Banniere Mode Edition        
+        const homEdition = document.querySelector ("div")               // Récuperation de la balise <div> dans le DOM pour creé la banniere mode edition
+        const icon = document.createElement("i")                        // Creation de la balise <i> pour l'icone
+        const edit = document.createElement("span")                     // Creation de la balise <span> pour le texte
+        homEdition.classList.add("edition")                             // Ajout d'une class "edition" a la balise <div> 
+        homEdition.appendChild(icon)                                    // Ajout de l'icone à la banniere
+        homEdition.appendChild(edit)                                    // Ajout du texte à la banniere
+        icon.classList.add("fa-regular", "fa-pen-to-square")            // Integration de l'icone
+        edit.textContent ="Mode édition"                                // Ajout du texte qui affichera mode edition
+// Bouton Modifier 
+        const projet = document.querySelector("#portfolio div")         // Recuperation de la balise <div> dans le DOM  pour creer le bouton modifier 
+        projet.classList.add("modif-edition")                           // Ajout d'unne class a la <div> pour le style 
+        const buttonModif = document.createElement("button")            // Creation de la balise <button> 
+        const iconModif = document.createElement("i")                   // Creationde  la balise <i> pour l'icone du boutton
+        projet.appendChild(iconModif)                                   // Ajout de l'icone dans la balise <div>
+        projet.appendChild(buttonModif)                                 // Ajout du button dans la balise <div> 
+        iconModif.classList.add("fa-regular", "fa-pen-to-square")       // Integration de l'icone 
+        buttonModif.textContent ="modifier"                             // Ajout du texte au boutton 
+        buttonModif.classList.add("button-modifier")                    // Ajout d'une class au button pour le style 
 
-        const projet = document.querySelector("#portfolio div")  
-        projet.classList.add("modif-edition")
-        const buttonModif = document.createElement("button")
-        const iconModif = document.createElement("i")
-        projet.appendChild(iconModif)
-        projet.appendChild(buttonModif)
-        iconModif.classList.add("fa-regular", "fa-pen-to-square")
-        buttonModif.textContent ="modifier" 
-        buttonModif.classList.add("button-modifier")
-
-        login.addEventListener (("click"), () => {              // ecouteur d'evenement sur le click
-             localStorage.removeItem("token")                   // Enlevement du token
-             window.location.href = "index.html"                // retour Lien origin Index.html 
+        login.addEventListener (("click"), () => {                      // Écouteur d'événement pour le bouton de déconnexion
+             localStorage.removeItem("token")                           // Suppression du token
+             window.location.href = "index.html"                        // Retour sur la page d'Accueil
                 })
     }
     
