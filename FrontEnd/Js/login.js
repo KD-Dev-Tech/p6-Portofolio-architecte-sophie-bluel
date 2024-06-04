@@ -65,7 +65,7 @@ form.addEventListener("submit", (event) => {                                    
 
 email.addEventListener("change", () => {                                                                    // Ajout d'un ecouteur d'evenement sur le champ de l'email lors du changement de valeur 
     if (email.value === "") {                                                                               // Verifie si le champ de l'email est vide
-        errorMessage.innerHTML = "Email invalide"                                                           // Affiche le message d'eereur prevue a cette effet
+        errorMessage.innerHTML = "Veuillez entrer un E-mail"                                                           // Affiche le message d'eereur prevue a cette effet
     }else{                                                                                                  // Sinon si le champ n'est pas vide 
         errorMessage.innerHTML=""                                                                           // Vide le message d'erreur
     }

@@ -183,7 +183,7 @@ function resetForm (){                                                          
 async function submitForm(e) {                                                                  // Fonction asynchrone qui envoie la requete de l'API pour l'envoie des projets 
     e.preventDefault()                                                                          // Empeche le rechargement de la page lor de la soumission du formulaire 
     try{                                                                                        // Execute le bloc de code suivant 
-            const formData = new FormData();                                                    // Crée un nouvel objet FormData pour stocker les donneéa du formulaire 
+            const formData = new FormData();                                                    // Crée un nouvel objet FormData pour stocker les donneé du formulaire 
             formData.append('image', buttonAjout.files[0]);                                     // Ajoute le fichier image selectioné dans le champ de fichier
             formData.append('title', title.value);                                              // Ajoute le titre depuis le champ de saisie 
             formData.append('category', category.value);                                        // Ajoute la categorie depuis le champ de selection 
